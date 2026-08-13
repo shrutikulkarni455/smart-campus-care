@@ -1,342 +1,319 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+let complaints = JSON.parse(localStorage.getItem("complaints")) || [];
+
+if (complaints.length === 0) {
+    complaints = [
+        {
+            id: "CMP001",
+            student: "Rahul Sharma",
+            category: "Wi-Fi",
+            location: "Computer Lab 2",
+            priority: "High",
+            description: "Wi-Fi is not working.",
+            status: "Pending"
+        },
+        {
+            id: "CMP002",
+            student: "Ayesha Khan",
+            category: "Cleaning",
+            location: "Room 101",
+            priority: "Medium",
+            description: "Classroom needs cleaning.",
+            status: "Resolved"
+        }
+    ];
+
+    saveComplaints();
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f7fb;
-    color: #263238;
-}
-
-.hidden {
-    display: none !important;
+function saveComplaints() {
+    localStorage.setItem("complaints", JSON.stringify(complaints));
 }
 
 
 /* LOGIN */
 
-.login-container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #1565c0, #42a5f5);
-    padding: 20px;
-}
+document.getElementById("loginForm").addEventListener("submit", function(event) {
 
-.login-box {
-    width: 100%;
-    max-width: 430px;
-    background: white;
-    padding: 35px;
-    border-radius: 18px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-}
+    event.preventDefault();
 
-.logo {
-    font-size: 55px;
-}
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
 
-.login-box h1 {
-    margin: 10px 0;
-    color: #1565c0;
-}
-
-.login-box p {
-    margin-bottom: 20px;
-    color: #666;
-}
-
-label {
-    display: block;
-    text-align: left;
-    font-weight: bold;
-    margin: 10px 0 6px;
-}
-
-input,
-select,
-textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #d0d7de;
-    border-radius: 8px;
-    font-size: 15px;
-}
-
-textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-button {
-    border: none;
-    background: #1565c0;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-button:hover {
-    background: #0d47a1;
-}
-
-.login-box button {
-    width: 100%;
-    margin-top: 15px;
-}
-
-.demo-login {
-    margin-top: 20px;
-    padding: 15px;
-    background: #eef6ff;
-    border-radius: 10px;
-}
-
-.demo-login p {
-    margin: 6px 0;
-    font-size: 13px;
-}
-
-.error {
-    color: #d32f2f !important;
-    margin-top: 15px;
-}
-
-.success {
-    color: #2e7d32;
-    font-weight: bold;
-    margin-top: 15px;
-}
-
-
-/* HEADER */
-
-header {
-    background: #1565c0;
-    color: white;
-    padding: 20px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h1 {
-    margin-bottom: 5px;
-}
-
-header p {
-    opacity: 0.9;
-}
-
-.logout {
-    background: white;
-    color: #1565c0;
-}
-
-.logout:hover {
-    background: #eeeeee;
-}
-
-
-/* CONTAINER */
-
-.container {
-    width: 90%;
-    max-width: 1250px;
-    margin: 30px auto;
-}
-
-.container > h2 {
-    margin-bottom: 25px;
-}
-
-
-/* STATISTICS */
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.stat-card {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.stat-card span {
-    font-size: 28px;
-}
-
-.stat-card h3 {
-    color: #666;
-    margin: 10px 0;
-}
-
-.stat-card h2 {
-    color: #1565c0;
-    font-size: 32px;
-}
-
-
-/* FORM */
-
-.form-section {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.form-section h2 {
-    margin-bottom: 20px;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-
-/* FILTER */
-
-.filter-area {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 15px;
-}
-
-
-/* TABLE */
-
-.table-section {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.table-wrapper {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    padding: 14px;
-    border-bottom: 1px solid #eee;
-    text-align: left;
-}
-
-th {
-    background: #1565c0;
-    color: white;
-}
-
-tr:hover {
-    background: #f5f9ff;
-}
-
-.status-pending {
-    color: #ef6c00;
-    font-weight: bold;
-}
-
-.status-resolved {
-    color: #2e7d32;
-    font-weight: bold;
-}
-
-.priority-high {
-    color: #d32f2f;
-    font-weight: bold;
-}
-
-.priority-medium {
-    color: #ef6c00;
-    font-weight: bold;
-}
-
-.priority-low {
-    color: #2e7d32;
-    font-weight: bold;
-}
-
-.resolve-btn {
-    background: #2e7d32;
-    padding: 8px 12px;
-}
-
-.resolve-btn:hover {
-    background: #1b5e20;
-}
-
-
-/* STUDENT COMPLAINT CARD */
-
-.complaint-card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
-}
-
-.complaint-card h3 {
-    color: #1565c0;
-    margin-bottom: 8px;
-}
-
-.complaint-card p {
-    margin: 5px 0;
-}
-
-
-/* RESPONSIVE */
-
-@media (max-width: 900px) {
-
-    .stats {
-        grid-template-columns: repeat(2, 1fr);
+    if (email === "student@gmail.com" && password === "1234") {
+        showStudentPage();
     }
 
-    .form-grid {
-        grid-template-columns: 1fr;
+    else if (email === "admin@gmail.com" && password === "1234") {
+        showAdminPage();
     }
 
-    .filter-area {
-        grid-template-columns: 1fr;
+    else {
+        document.getElementById("loginError").innerText =
+            "Invalid email or password.";
+    }
+});
+
+
+/* STUDENT PAGE */
+
+function showStudentPage() {
+
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("studentPage").classList.remove("hidden");
+    document.getElementById("adminPage").classList.add("hidden");
+
+    displayStudentComplaints();
+}
+
+
+/* ADMIN PAGE */
+
+function showAdminPage() {
+
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("studentPage").classList.add("hidden");
+    document.getElementById("adminPage").classList.remove("hidden");
+
+    displayAdminComplaints();
+}
+
+
+/* LOGOUT */
+
+function logout() {
+
+    document.getElementById("loginPage").classList.remove("hidden");
+    document.getElementById("studentPage").classList.add("hidden");
+    document.getElementById("adminPage").classList.add("hidden");
+
+    document.getElementById("loginForm").reset();
+}
+
+
+/* SUBMIT COMPLAINT */
+
+document.getElementById("complaintForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const complaint = {
+        id: "CMP" + String(complaints.length + 1).padStart(3, "0"),
+
+        student: document.getElementById("studentName").value,
+
+        category: document.getElementById("category").value,
+
+        location: document.getElementById("location").value,
+
+        priority: document.getElementById("priority").value,
+
+        description: document.getElementById("description").value,
+
+        status: "Pending"
+    };
+
+    complaints.push(complaint);
+
+    saveComplaints();
+
+    document.getElementById("successMessage").innerText =
+        "Complaint submitted successfully! ID: " + complaint.id;
+
+    document.getElementById("complaintForm").reset();
+
+    displayStudentComplaints();
+});
+
+
+/* STUDENT COMPLAINTS */
+
+function displayStudentComplaints() {
+
+    const container = document.getElementById("studentComplaints");
+
+    container.innerHTML = "";
+
+    complaints.forEach(function(complaint) {
+
+        const card = document.createElement("div");
+
+        card.className = "complaint-card";
+
+        card.innerHTML = `
+            <h3>${complaint.id}</h3>
+
+            <p><strong>Category:</strong> ${complaint.category}</p>
+
+            <p><strong>Location:</strong> ${complaint.location}</p>
+
+            <p><strong>Priority:</strong> ${complaint.priority}</p>
+
+            <p><strong>Description:</strong> ${complaint.description}</p>
+
+            <p>
+                <strong>Status:</strong>
+                <span class="${
+                    complaint.status === "Pending"
+                    ? "status-pending"
+                    : "status-resolved"
+                }">
+                    ${complaint.status}
+                </span>
+            </p>
+        `;
+
+        container.appendChild(card);
+    });
+
+    updateStudentStats();
+}
+
+
+/* STUDENT STATISTICS */
+
+function updateStudentStats() {
+
+    const total = complaints.length;
+
+    const pending = complaints.filter(
+        c => c.status === "Pending"
+    ).length;
+
+    const resolved = complaints.filter(
+        c => c.status === "Resolved"
+    ).length;
+
+    document.getElementById("studentTotal").innerText = total;
+
+    document.getElementById("studentPending").innerText = pending;
+
+    document.getElementById("studentResolved").innerText = resolved;
+}
+
+
+/* ADMIN TABLE */
+
+function displayAdminComplaints() {
+
+    const table = document.getElementById("adminTable");
+
+    table.innerHTML = "";
+
+    const search = document.getElementById("search").value.toLowerCase();
+
+    const statusFilter = document.getElementById("statusFilter").value;
+
+    const categoryFilter = document.getElementById("categoryFilter").value;
+
+    const filtered = complaints.filter(function(complaint) {
+
+        const searchMatch =
+            complaint.id.toLowerCase().includes(search) ||
+            complaint.student.toLowerCase().includes(search) ||
+            complaint.location.toLowerCase().includes(search) ||
+            complaint.category.toLowerCase().includes(search);
+
+        const statusMatch =
+            statusFilter === "All" ||
+            complaint.status === statusFilter;
+
+        const categoryMatch =
+            categoryFilter === "All" ||
+            complaint.category === categoryFilter;
+
+        return searchMatch && statusMatch && categoryMatch;
+    });
+
+
+    filtered.forEach(function(complaint) {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${complaint.id}</td>
+
+            <td>${complaint.student}</td>
+
+            <td>${complaint.category}</td>
+
+            <td>${complaint.location}</td>
+
+            <td>${complaint.priority}</td>
+
+            <td>${complaint.description}</td>
+
+            <td class="${
+                complaint.status === "Pending"
+                ? "status-pending"
+                : "status-resolved"
+            }">
+                ${complaint.status}
+            </td>
+
+            <td>
+                ${
+                    complaint.status === "Pending"
+                    ?
+                    `<button
+                        class="resolve-btn"
+                        onclick="resolveComplaint('${complaint.id}')">
+                        Resolve
+                    </button>`
+                    :
+                    "✓ Done"
+                }
+            </td>
+        `;
+
+        table.appendChild(row);
+    });
+
+    updateAdminStats();
+}
+
+
+/* RESOLVE COMPLAINT */
+
+function resolveComplaint(id) {
+
+    const complaint = complaints.find(
+        c => c.id === id
+    );
+
+    if (complaint) {
+
+        complaint.status = "Resolved";
+
+        saveComplaints();
+
+        displayAdminComplaints();
     }
 }
 
-@media (max-width: 600px) {
 
-    .stats {
-        grid-template-columns: 1fr;
-    }
+/* ADMIN STATISTICS */
 
-    header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
+function updateAdminStats() {
 
-    .container {
-        width: 94%;
-    }
+    const total = complaints.length;
+
+    const pending = complaints.filter(
+        c => c.status === "Pending"
+    ).length;
+
+    const resolved = complaints.filter(
+        c => c.status === "Resolved"
+    ).length;
+
+    const high = complaints.filter(
+        c => c.priority === "High"
+    ).length;
+
+    document.getElementById("adminTotal").innerText = total;
+
+    document.getElementById("adminPending").innerText = pending;
+
+    document.getElementById("adminResolved").innerText = resolved;
+
+    document.getElementById("adminHigh").innerText = high;
 }
