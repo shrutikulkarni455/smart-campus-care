@@ -1,1 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Campus Care</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- LOGIN PAGE -->
+
+    <div id="loginPage" class="login-container">
+
+        <div class="login-box">
+
+            <div class="logo">🎓</div>
+
+            <h1>Smart Campus Care</h1>
+
+            <p>College Complaint Management System</p>
+
+            <form id="loginForm">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Enter email"
+                    required
+                >
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter password"
+                    required
+                >
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+            <div class="demo-login">
+
+                <strong>Demo Login</strong>
+
+                <p>Student: student@gmail.com / 1234</p>
+
+                <p>Admin: admin@gmail.com / 1234</p>
+
+            </div>
+
+            <p id="loginError" class="error"></p>
+
+        </div>
+
+    </div>
+
+
+    <!-- STUDENT PAGE -->
+
+    <div id="studentPage" class="hidden">
+
+        <header>
+
+            <div>
+                <h1>🎓 Smart Campus Care</h1>
+                <p>Student Portal</p>
+            </div>
+
+            <button onclick="logout()" class="logout">
+                Logout
+            </button>
+
+        </header>
+
+
+        <main class="container">
+
+            <h2>Welcome, Student 👋</h2>
+
+            <!-- STATISTICS -->
+
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <span>📋</span>
+
+                    <h3>Total Complaints</h3>
+
+                    <h2 id="studentTotal">0</h2>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>⏳</span>
+
+                    <h3>Pending</h3>
+
+                    <h2 id="studentPending">0</h2>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>✅</span>
+
+                    <h3>Resolved</h3>
+
+                    <h2 id="studentResolved">0</h2>
+
+                </div>
+
+            </div>
+
+
+            <!-- COMPLAINT FORM -->
+
+            <section class="form-section">
+
+                <h2>Submit a Complaint</h2>
+
+                <form id="complaintForm">
+
+                    <div class="form-grid">
+
+                        <div>
+
+                            <label>Student Name</label>
+
+                            <input
+                                type="text"
+                                id="studentName"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label>Category</label>
+
+                            <select id="category" required>
+
+                                <option value="">
+                                    Select category
+                                </option>
+
+                                <option>Wi-Fi</option>
+
+                                <option>Electricity</option>
+
+                                <option>Water</option>
+
+                                <option>Cleaning</option>
+
+                                <option>Classroom</option>
+
+                                <option>Laboratory</option>
+
+                                <option>Other</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div>
+
+                            <label>Location</label>
+
+                            <input
+                                type="text"
+                                id="location"
+                                placeholder="Example: Computer Lab 2"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label>Priority</label>
+
+                            <select id="priority">
+
+                                <option>Low</option>
+
+                                <option selected>
+                                    Medium
+                                </option>
+
+                                <option>High</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <label>Description</label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Describe your problem..."
+                        required
+                    ></textarea>
+
+
+                    <button type="submit">
+                        Submit Complaint
+                    </button>
+
+                </form>
+
+                <p id="successMessage" class="success"></p>
+
+            </section>
+
+
+            <!-- STUDENT COMPLAINTS -->
+
+            <section>
+
+                <h2>My Complaints</h2>
+
+                <div id="studentComplaints"></div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ADMIN PAGE -->
+
+    <div id="adminPage" class="hidden">
+
+        <header>
+
+            <div>
+
+                <h1>🎓 Smart Campus Care</h1>
+
+                <p>Administrator Dashboard</p>
+
+            </div>
+
+            <button onclick="logout()" class="logout">
+                Logout
+            </button>
+
+        </header>
+
+
+        <main class="container">
+
+            <h2>Admin Dashboard 📊</h2>
+
+
+            <!-- ADMIN STATISTICS -->
+
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <span>📋</span>
+
+                    <h3>Total</h3>
+
+                    <h2 id="adminTotal">0</h2>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>⏳</span>
+
+                    <h3>Pending</h3>
+
+                    <h2 id="adminPending">0</h2>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>✅</span>
+
+                    <h3>Resolved</h3>
+
+                    <h2 id="adminResolved">0</h2>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>🔥</span>
+
+                    <h3>High Priority</h3>
+
+                    <h2 id="adminHigh">0</h2>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <section class="form-section">
+
+                <h2>Manage Complaints</h2>
+
+                <div class="filter-area">
+
+                    <input
+                        type="text"
+                        id="search"
+                        placeholder="🔍 Search complaints..."
+                        oninput="displayAdminComplaints()"
+                    >
+
+
+                    <select
+                        id="statusFilter"
+                        onchange="displayAdminComplaints()"
+                    >
+
+                        <option value="All">
+                            All Status
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Resolved">
+                            Resolved
+                        </option>
+
+                    </select>
+
+
+                    <select
+                        id="categoryFilter"
+                        onchange="displayAdminComplaints()"
+                    >
+
+                        <option value="All">
+                            All Categories
+                        </option>
+
+                        <option>Wi-Fi</option>
+
+                        <option>Electricity</option>
+
+                        <option>Water</option>
+
+                        <option>Cleaning</option>
+
+                        <option>Classroom</option>
+
+                        <option>Laboratory</option>
+
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- ADMIN TABLE -->
+
+            <section class="table-section">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Student</th>
+
+                                <th>Category</th>
+
+                                <th>Location</th>
+
+                                <th>Priority</th>
+
+                                <th>Description</th>
+
+                                <th>Status</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="adminTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
